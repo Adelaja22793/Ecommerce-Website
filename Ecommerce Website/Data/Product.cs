@@ -21,9 +21,9 @@ namespace Ecommerce_Website.Data
 
         public SubCategory SubCategory { get; set; }
 
-        public ICollection<ProductColour> ProductColours { get; set;}
+        public IList<ProductColour> ProductColours { get; set;}
 
-        public ICollection<Image> Images { get; set; }
+        public IList<Image> Images { get; set; }
 
 
     }

@@ -217,11 +217,12 @@
                                             <img src="images/1.jpg" alt=" " class="img-responsive" />
                                         </div>
                                     </div>
+
                                     <div class="clearfix"></div>
-                                </div>
+
                             </ul>
                         </li>
-                        <li><a href="about.html">About Us</a></li>
+ 
                         <li class="w3pages">
                             <a href="#"
                                class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <span class="caret"></span></a>
@@ -230,8 +231,26 @@
                                 <li><a href="codes.html">Short Codes</a></li>
                             </ul>
                         </li>
-                        <li><a href="mail.html">Mail Us</a></li>
+                        <li class="w3pages">
+                            <a href="#"
+                               class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/SubCateg/Index">Sub Category</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/MainCategory/Index">Main Category</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ProductSetup/Index">Product</a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
+                   </div>
                 </div>
             </nav>
         </div>
@@ -262,7 +281,7 @@
 
 
 
-    <div class="container">
+    <div class="container main-container-margin">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()

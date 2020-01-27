@@ -25,6 +25,9 @@ namespace Ecommerce_Website.Pages.Admin.MainCategory
 
         [BindProperty]
         public Data.MainCategory MainCategory { get; set; }
+        
+
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -37,6 +40,11 @@ namespace Ecommerce_Website.Pages.Admin.MainCategory
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+
+
         }
+
+ 
+
     }
 }

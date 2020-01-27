@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Ecommerce_Website.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Ecommerce_Website.Data;
-using Microsoft.AspNetCore.Http;
+using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Ecommerce_Website.Pages.Admin.SubCateg
 {
@@ -15,6 +13,9 @@ namespace Ecommerce_Website.Pages.Admin.SubCateg
     {
         private readonly Ecommerce_Website.Data.ApplicationDbContext _context;
 
+        public string Message { get; set; }
+        public string Error { get; set; }
+         
         [BindProperty]
         public IFormFile BannerImage { get; set; }
 
@@ -25,7 +26,7 @@ namespace Ecommerce_Website.Pages.Admin.SubCateg
 
         public IActionResult OnGet()
         {
-        ViewData["MainCategoryId"] = new SelectList(_context.MainCategories, "Id", "Id");
+        ViewData["MainCategoryList"] = new SelectList(_context.MainCategories, "Id", "Name");
             return Page();
         }
 
@@ -36,6 +37,7 @@ namespace Ecommerce_Website.Pages.Admin.SubCateg
         {
             if (!ModelState.IsValid)
             {
+              
                 return Page();
             }
 
@@ -49,11 +51,16 @@ namespace Ecommerce_Website.Pages.Admin.SubCateg
 
                 _context.SubCategories.Add(SubCategory);
                 await _context.SaveChangesAsync();
+              
+                return RedirectToPage("./Index");  
             }
+            else
+            {
+                
+                Error = "Banner image is required";
 
-            
-
-            return RedirectToPage("./Index");
+                return Page();
+            }
         }
     }
-}
+}     
