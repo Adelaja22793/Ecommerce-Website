@@ -196,23 +196,22 @@
 
                                     @foreach (var main in listMainCategories)
                                     {
-                                    <div class="col-sm-3">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>@main.Name</h6>
+                                        <div class="col-sm-3">
+                                            <ul class="multi-column-dropdown">
+                                                <h6>@main.Name</h6>
 
-                                            @foreach (var sub in main.SubCategories)
-                                            {
-                                                <li><a href="products.html">@sub.Name</a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                            }
-
-
-
-                                      
+                                                @foreach (var sub in main.SubCategories)
+                                                {
+                                                    // asp-route-{param name} to pass data e.g asp-route-subgroupId="@sub.Id"
+                                                    <li><a asp-page="/Customer/Products/Group" asp-route-subgroupId="@sub.Id">@sub.Name</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
 
 
+
+              
                                         <div class="col-sm-4">
                                             <div class="w3ls_products_pos">
                                                 <h4>30%<i>Off/-</i></h4>
