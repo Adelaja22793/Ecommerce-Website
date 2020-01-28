@@ -5,7 +5,7 @@
 }
 
 <!-- banner -->
-<div class="banner banner1" style="background-image:@($"~/productimages/{Model.SubCategory.BannerImage}")">
+<div class="banner banner1" style="background-image:url(@(Url.Content($"~/productimages/{Model.SubCategory.BannerImage}")))">
     <div class="container">
         <h2>Great  Offers on <span>@Model.SubCategory.Name</span> Flat <i>35% Discount</i></h2>
     </div>
@@ -153,7 +153,7 @@
 									<div class="hs-wrapper hs-wrapper2">
 										@foreach(var img in item.Images)
                                         {
-										<img src="@($"~/{img.Link}")" alt=" " class="img-responsive" />
+										<img src="@Url.Content($"~/{img.Link}")" alt=" " class="img-responsive" />
                                         }
 										
 										
