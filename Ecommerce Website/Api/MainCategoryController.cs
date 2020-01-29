@@ -58,15 +58,12 @@ namespace Ecommerce_Website.Api
         [HttpGet("AllCategories")]
         public async Task<List<MainCategory>> GetAllMainCategoriesAsync()
         {
-            List<MainCategory> list = await _context.MainCategories.Include(x => x.SubCategories).ToListAsync();
-
-            foreach (var main in list) { 
-                foreach (var sub in main.SubCategories) {
-                    sub.MainCategory = null;
-                }
-            }
-
-        return list;
+            List<MainCategory> list = await _context
+                .MainCategories
+                .Include(x => x.SubCategories)
+                .ToListAsync();
+       
+         return list;
         }
 
 
