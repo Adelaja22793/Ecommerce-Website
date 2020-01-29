@@ -70,7 +70,9 @@ namespace Ecommerce_Website.Api
         [HttpGet("CategoryById")]
         public async Task<MainCategory> GetMainCategoryByIdAsync([FromQuery] int id)
         {
-            var mainCategory = await _context.MainCategories.Include(x => x.SubCategories).FirstOrDefaultAsync(p => p.Id == id);
+            var mainCategory = await _context.MainCategories
+                .Include(x => x.SubCategories)
+                .FirstOrDefaultAsync(p => p.Id == id);
             return mainCategory;
         }
     }

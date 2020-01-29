@@ -78,7 +78,7 @@ namespace Ecommerce_Website.Api
         public async Task<List<SubCategory>> GetAllSubCategoriesSameIdAsync([FromQuery] int id)
         {
             var subList = await _context.SubCategories.Include(x => x.MainCategory).Where(i => i.MainCategory.Id == id).ToListAsync();
-            subList.ForEach(x => x.MainCategory = null);
+          
             return subList;
         }
 
