@@ -73,7 +73,7 @@ namespace Ecommerce_Website.Api
 
 
         // POST api/<controller>
-        [HttpPost]
+        [HttpPost] 
         public void Post([FromBody]string value)
         {
         }
