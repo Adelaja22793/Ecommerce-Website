@@ -4,14 +4,16 @@ using Ecommerce_Website.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce_Website.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200129111337_make-some-cart-fields-nullable")]
+    partial class makesomecartfieldsnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,22 +201,6 @@ namespace Ecommerce_Website.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b3acaee3-c0eb-4a8e-8a1d-29709f2ab589",
-                            ConcurrencyStamp = "80815dc2-e7e8-494d-9161-e182b07fb673",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "776cc395-9519-4392-a5a2-6bd55fffb7b9",
-                            ConcurrencyStamp = "9b05e120-e773-4bf1-8935-105fe7a9b7e2",
-                            Name = "Staff",
-                            NormalizedName = "STAFF"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -366,8 +352,6 @@ namespace Ecommerce_Website.Data.Migrations
             modelBuilder.Entity("Ecommerce_Website.Data.Customer", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("CardNumber");
 
                     b.HasDiscriminator().HasValue("Customer");
                 });

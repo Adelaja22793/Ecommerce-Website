@@ -4,14 +4,16 @@ using Ecommerce_Website.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce_Website.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200129144638_database-seeding")]
+    partial class databaseseeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,15 +205,15 @@ namespace Ecommerce_Website.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3acaee3-c0eb-4a8e-8a1d-29709f2ab589",
-                            ConcurrencyStamp = "80815dc2-e7e8-494d-9161-e182b07fb673",
+                            Id = "9921fcb3-826f-4dee-b91a-47b7c70840c0",
+                            ConcurrencyStamp = "01277754-ec35-42b5-bb0f-52e5df138351",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "776cc395-9519-4392-a5a2-6bd55fffb7b9",
-                            ConcurrencyStamp = "9b05e120-e773-4bf1-8935-105fe7a9b7e2",
+                            Id = "5fbe10fa-62f7-4796-800c-daac319f1fc2",
+                            ConcurrencyStamp = "73002abe-bc01-4824-b428-4974e4811ef7",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         });

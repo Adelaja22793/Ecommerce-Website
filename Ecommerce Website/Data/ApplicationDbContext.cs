@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,24 @@ namespace Ecommerce_Website.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        } 
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // seeding the database
+            var roles = new List<IdentityRole>()
+            {
+                new IdentityRole{Name="Customer", NormalizedName="CUSTOMER" },
+                 new IdentityRole{Name="Staff", NormalizedName="STAFF" }
+
+            };
+
+
+            // populate the database i.e identity role table :: database seeding
+            builder.Entity<IdentityRole>().HasData(roles);
+
+            base.OnModelCreating(builder);
+        }
     }
 }
