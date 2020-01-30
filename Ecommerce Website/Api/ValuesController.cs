@@ -74,8 +74,17 @@ namespace Ecommerce_Website.Api
 
         // POST api/<controller>
         [HttpPost] 
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Address address)
         {
+            if (ModelState.IsValid)
+            {
+
+                return Ok($"Address with Name : { address.Title} was saved successfully");
+            }
+            else { return BadRequest("Invalid Model");  }
+
+
+
         }
 
         // PUT api/<controller>/5
