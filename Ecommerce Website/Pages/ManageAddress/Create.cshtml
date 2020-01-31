@@ -1,0 +1,251 @@
+﻿@page
+@model Ecommerce_Website.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<style>
+    th, td, p, input {
+        font: 14px Verdana;
+    }
+
+    table, th, td {
+        border: solid 1px #DDD;
+        border-collapse: collapse;
+        padding: 2px 3px;
+        text-align: center;
+    }
+
+    th {
+        font-weight: bold;
+    }
+</style>
+<h4>Address</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" id="addressId" value="0" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Address.Title" class="control-label"></label>
+                <input id="Title" asp-for="Address.Title" class="form-control" />
+                <span asp-validation-for="Address.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.State" class="control-label"></label>
+                <input id="State" asp-for="Address.State" class="form-control" />
+                <span asp-validation-for="Address.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.ActualAddress" class="control-label"></label>
+                <input id="Actual" asp-for="Address.ActualAddress" class="form-control" />
+                <span asp-validation-for="Address.ActualAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary CreateBtn" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div id="metric_results">
+
+
+
+</div>
+
+<table id="addressTable"
+       class="table table-bordered
+                 table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>State</th>
+            <th>Actual Address</th>
+            <th>Customer Id</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+</table>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    //create
+    $(document).ready(function () {
+        $('.CreateBtn').on('click', function () {
+            var title = $('#Title').val();
+            var actual = $('#Actual').val();
+            var state = $('#State').val();
+
+
+            var baseUrl = window.location.origin;
+            var d = {
+                "Title": title,
+                "State": state,
+                "ActualAddress": actual
+
+            };
+
+            $.ajax({
+                type: "POST",
+                url: 'https://localhost:5001/api/Addresses',
+                data: JSON.stringify(d),
+                xhrFields: { withCredentials: true },
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Address saved successfully");
+                    
+                    
+                },
+                failure: function (response) {
+                    alert("Address Failure");
+                },
+                error: function (response) {
+                    alert("An Error occured with Address");
+                }
+            });
+        });
+    });
+
+    //read
+    function addressList() {
+        $.ajax({
+            url: 'https://localhost:5001/api/Addresses',
+            type: 'GET',
+            dataType: 'json',
+            success: function (addresses) {
+                addressListSuccess(addresses)
+            },
+            error: function () {
+                alert("Error retrieving list")
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        addressList();
+    });
+
+
+   
+
+
+
+    function addressListSuccess(addresses) {
+        // Iterate over the collection of data
+      $.each(addresses, function (index, address) {
+    // Add a row to the Product table
+    addressAddRow(address);
+  });
+}
+
+
+
+    function addressAddRow(address) {
+        // Check if <tbody> tag exists, add one if not
+        if ($("#addressTable tbody").length == 0) {
+            $("#addressTable").append("<tbody></tbody>");
+        }
+        // Append row to <table>
+        $("#addressTable tbody").append(
+            addressBuildTableRow(address));
+
+    }
+ 
+    function addressBuildTableRow(address) {
+        console.log(address);
+        var id = Number(address.id);
+    var ret =
+      '<tr>' +
+        '<td>' + address.title + '</td>' +
+        '<td>' + address.state + '</td>'
+        + '<td>' + address.actualAddress + '</td>' 
+            + '<td>' + address.customerId + '</td>' +
+            '<td>' +
+              '<button type="button" class="edit" ' +
+                `class="btn btn-default" addid="${id}"> ` +
+                
+                 '<span class="glyphicon glyphicon-edit" />'
+               + '</button>' +
+    "</td >" +
+    "</tr>";
+    return ret;
+    }
+
+
+    function addressGet(ctl) {
+        console.log("I was Clicked");
+      // Get product id from data- attribute
+      var id = $(ctl).data("id");
+      
+      // Store product id in hidden field
+      $("#addressId").val(id);
+      
+      // Call Web API to get a list of Products
+      $.ajax({
+        url: 'https://localhost:5001/api/Addresses' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (address) {
+          addressToFields(address);
+      
+          // Change Update Button Text
+          $("#updateButton").text("Update");
+        },
+        error: function () {
+         
+        }
+      });
+    }
+
+
+
+
+
+    function addressToFields(address) {
+        $("#Title").val(address.title);
+        $("#State").val(address.state);
+        $("#Actual").val(address.actualAddress);
+    } 
+
+
+
+
+    $("#addressTable").on('click','.edit',function() {
+
+        var id = $(this).attr('addid');
+        var intId = Number(id);
+
+         console.log(id);
+      
+        $.ajax({
+            url: 'https://localhost:5001/api/Addresses/' + intId,
+        method: 'GET',
+        data: { "id": intId },
+        success: function (address) {
+            addressToFields(address);
+        }
+      });
+
+
+
+    });
+
+</script>
